@@ -26,4 +26,6 @@ class ApplyDiscountSerializer(serializers.Serializer):
         if discount.ended < now():
             raise validators.ValidationError("This discount has expired.")
 
+        attrs['discount'] = discount
+
         return attrs
