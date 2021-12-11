@@ -1,7 +1,7 @@
-version: '3.9'
+version: '3.7'
 services:
   api:
-    container_name: core_app
+    container_name: api
     build: .
     restart: always
     env_file: .env
@@ -15,20 +15,11 @@ services:
 
   flask_api:
     container_name: fake_payment_api
-    build: ./FakePaymentServer
+    build: .
     restart: on-failure
     ports:
-      - "5000:5000"
+      - "5005:5005"
     command: >
       sh -c "flask run"
     volumes:
       - .:/app/FakePaymentServer
-  tests:
-    container_name: tests
-    build: .
-    restart: on-failure
-    command: >
-      sh -c "pytest"
-    depends_on:
-      - flask_api
-      - api
