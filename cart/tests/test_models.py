@@ -13,6 +13,7 @@ def test_cart_model():
     assert cart.total == 10
     assert cart.currency == "USD"
     assert cart.items_number == 5
+    assert cart.payment_status == "pending"
 
 
 @pytest.mark.django_db
@@ -30,3 +31,5 @@ def test_apply_discount_to_cart():
     assert cart.amount_discounted == 5
     assert cart.total == 15
     assert cart.total_discounted == 15
+    assert cart.payment_status == "pending"
+

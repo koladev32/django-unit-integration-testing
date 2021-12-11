@@ -7,6 +7,7 @@ class Cart(models.Model):
     items_number = models.IntegerField(default=0)
     total_discounted = models.FloatField(default=0)
     amount_discounted = models.FloatField(default=0)
+    payment_status = models.CharField(default="pending", max_length=35)
     created = models.DateTimeField(auto_now_add=True)
 
     def apply_discount(self, discount):
