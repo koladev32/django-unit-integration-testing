@@ -1,0 +1,2 @@
+class PaymentAPI:
+    pass
