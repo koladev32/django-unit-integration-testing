@@ -15,13 +15,8 @@ jobs:
       run: |
         touch .env
         echo FAKE_PAYMENT_API=fake_payment_api >> .env
-    - name: Build docker
+    - name: Building containers and running tests
       run: |
         echo ----Building container----
         docker-compose up -d --build
         echo ----Containers up----
-    - name: Run tests
-      run: |
-        echo -----Running tests-----
-        docker-compose exec web pytest
-        echo -----Running tests done-----
