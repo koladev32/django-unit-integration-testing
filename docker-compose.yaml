@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  web:
+    container_name: core_app
+    build: .
+    restart: always
+    env_file: .env
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c " python manage.py migrate &&
+          gunicorn CoreRoot.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+     - .:/app
+
+  flask_api:
+    container_name: fake_payment_api
+    build: ./FakePaymentServer
+    restart: on-failure
+    ports:
+      - "5000:5000"
+    command: >
+      sh -c "flask run"
+    volumes:
+      - .:/app/FakePaymentServer
