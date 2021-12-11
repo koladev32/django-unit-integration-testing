@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-  web:
+  api:
     container_name: core_app
     build: .
     restart: always
@@ -23,3 +23,12 @@ services:
       sh -c "flask run"
     volumes:
       - .:/app/FakePaymentServer
+  tests:
+    container_name: tests
+    build: .
+    restart: on-failure
+    command: >
+      sh -c "pytest"
+    depends_on:
+      - flask_api
+      - api
