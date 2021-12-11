@@ -15,7 +15,7 @@ services:
 
   flask_api:
     container_name: fake_payment_api
-    build: .
+    build: ./FakePaymentServer
     restart: on-failure
     ports:
       - "5000:5000"
