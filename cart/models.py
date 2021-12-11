@@ -1,3 +1,4 @@
+from utils import PaymentAPI
 from django.db import models
 
 
@@ -11,7 +12,6 @@ class Cart(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def apply_discount(self, discount):
-
         self.amount_discounted += discount.value
         self.total_discounted = self.total - self.amount_discounted
 
@@ -19,4 +19,12 @@ class Cart(models.Model):
 
         self.save(update_fields=['total', 'amount_discounted', 'total_discounted'])
 
+    def pay(self):
+        initialized_payment = PaymentAPI()
+        payment = initialized_payment.request_payment(cart_id=self.pk, amount=self.total)
 
+        assert payment['cart_id'] == self.pk
+
+        self.payment_status = payment['payment_status']
+
+        self.save(update_fields=['payment_status'])
