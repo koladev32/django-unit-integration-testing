@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      FAKE_PAYMENT_API=fake_payment_api
     steps:
     - uses: actions/checkout@v2
     - name: Build docker
