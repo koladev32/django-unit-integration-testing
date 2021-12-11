@@ -1,5 +1,8 @@
+import requests
+
 import pytest
 from django.utils.timezone import now, timedelta
+from django.conf import settings
 from cart.models import Cart
 from discount.models import Discount
 
@@ -89,3 +92,9 @@ def test_apply_discount_to_cart(client):
     assert response.data['total_discounted'] == 15
     assert response.data['amount_discounted'] == 5
 
+
+def test_inspect_payment_api(client):
+    response = requests.get(f'http://{settings.FAKE_PAYMENT_API}/inspect')
+
+    assert response.status_code == 200
+    assert response.json()['available'] == 1
