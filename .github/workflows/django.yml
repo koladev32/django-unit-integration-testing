@@ -15,6 +15,7 @@ jobs:
       run: |
         touch .env
         echo FAKE_PAYMENT_API=fake_payment_api >> .env
+        echo FLASK_APP=fake_payment_server.py >> .env
     - name: Building containers
       run: |
         docker-compose up -d --build
