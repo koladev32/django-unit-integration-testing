@@ -1,0 +1,23 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build docker
+      run: |
+        echo ----Building container----
+        docker-compose up -d --build
+        echo ----Containers up----
+    - name: Run tests
+      run: |
+        echo -----Running tests-----
+        docker-compose exec web pytest
+        echo -----Running tests done-----
