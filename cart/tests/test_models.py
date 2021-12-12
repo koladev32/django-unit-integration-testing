@@ -47,3 +47,16 @@ def test_cart_pay():
     cart.pay()
 
     assert cart.payment_status == "success"
+
+
+@pytest.mark.django_db
+def test_cart_pay_failed():
+    cart = Cart(total=25, currency="USD", items_number=5)
+    cart.save()
+
+    assert cart.total == 25
+    assert cart.payment_status == "pending"
+
+    cart.pay()
+
+    assert cart.payment_status == "failed"

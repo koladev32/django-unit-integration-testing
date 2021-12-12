@@ -29,7 +29,7 @@ def request_payment():
         abort(400, {'type': "The fields should be integers."})
 
     if amount >= CARD_BALANCE:
-        abort(400, {
+        return jsonify({
             'cart_id': cart_id,
             'payment_status': "failed"
         })
