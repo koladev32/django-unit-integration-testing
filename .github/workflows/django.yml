@@ -14,7 +14,7 @@ jobs:
     - name: Creating env file
       run: |
         touch .env
-        echo FAKE_PAYMENT_API=fake_payment_api >> .env
+        echo FAKE_PAYMENT_API=fake_payment_api:5005 >> .env
         echo FLASK_APP=fake_payment_server.py >> .env
     - name: Building containers
       run: |
